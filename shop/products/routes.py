@@ -7,7 +7,31 @@ import secrets, os
 @app.route('/')
 def home():
     products = Addproduct.query.filter(Addproduct.stock > 0)
-    return render_template('products/index.html', products=products)
+    barnds = Brand.query.join(Addproduct, (Brand.id == Addproduct.brand_id)).all()
+    categories = Category.query.join(Addproduct, (Category.id == Addproduct.category_id)).all()
+    return render_template('products/index.html', products=products, barnds=barnds, categories=categories)
+
+@app.route('/product/<int:id>')
+def single_page(id):
+    product = Addproduct.query.get_or_404(id)
+    barnds = Brand.query.join(Addproduct, (Brand.id == Addproduct.brand_id)).all()
+    categories = Category.query.join(Addproduct, (Category.id == Addproduct.category_id)).all()
+    return render_template('products/single_page.html', product=product, categories=categories, barnds=barnds)
+
+@app.route('/categories/<int:id>')
+def get_category(id):
+    get_cat_prod = Addproduct.query.filter_by(category_id=id)
+    categories = Category.query.join(Addproduct, (Category.id == Addproduct.category_id)).all()
+    barnds = Brand.query.join(Addproduct, (Brand.id == Addproduct.brand_id)).all()
+    return render_template('products/index.html', get_cat_prod=get_cat_prod, categories=categories, barnds=barnds)
+
+@app.route('/brand/<int:id>')
+def get_brand(id):
+    brand = Addproduct.query.filter_by(brand_id=id)
+    barnds = Brand.query.join(Addproduct, (Brand.id == Addproduct.brand_id)).all()
+    categories = Category.query.join(Addproduct, (Category.id == Addproduct.category_id)).all()
+    return render_template('products/index.html', brand=brand, barnds=barnds, categories=categories)
+
 
 
 
