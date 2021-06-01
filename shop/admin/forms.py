@@ -8,7 +8,7 @@ class RegistrationForm(Form):
     email = StringField('Indirizzo Email', [validators.Length(min=6, max=35), validators.Email()])
     password = PasswordField('Nuova Password', [
         validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords must match')
+        validators.EqualTo('confirm', message='Passwords devono corrispondere')
     ])
     confirm = PasswordField('Ripeti Password')
 
