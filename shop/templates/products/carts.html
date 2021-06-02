@@ -1,0 +1,61 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+    {% include 'navbar.html' %}
+<div class ="container mt-4">
+{% include '_messages.html' %}
+    <div class="row">
+    <div class="col-md-12">
+        <table class="table table-sm">
+            <thead>
+            <th>Sr</th>
+            <th>Immagine</th>
+            <th>Nome</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Sconto</th>
+            <th>Totale</th>
+            <th>Modifica</th>
+            <th>Rimuovi</th>
+            </thead>
+            <tbody>
+           {% for key, product in session['Shoppingcart'].items() %}
+               {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
+               <tr>
+
+                <td>{{ loop.index }}</td>
+                <td><image src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" wiidth="58" height="45"></image></td>
+                <td>{{ product.name}}</td>
+               <form action="{{ url_for('updatecart', code=key) }}" method="post">
+                <td>{{ product.price }} €</td>
+               <td> <input type="number" name="quantity" min="1" max="10" value="{{ product.quantity }}"></td>
+                   {% if product.discount > 0 %}
+                    <td>{{ product.discount }}% &nbsp è {{ discount }}</td>
+                   {% else %}
+                    <td></td>
+                   {% endif %}
+                {% set subtotal = product.quantity|int * product.price|float %}
+
+                 <td>{{ "%0.2f"|format((subtotal|float) - discount|float) }} €</td>
+                <td><button type ="submt" class="btn btn-sm btn-info">Modifica</button></td>
+               </form>
+                <td><a href="{{url_for('deleteitem', id=key)}}" class="btn btn-sm btn-danger">Rimuovi</a></td>
+
+
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><a href="/" class="btn btn-success">CheckOut</a></td>
+                <td colspan="4"><h3>Tassa: {{ tax }} €</h3></td>
+                <td colspan="4"><h3>Totale: {{ grandtotal }} €</h3></td>
+                <td> <a href="{{ url_for('clearcart')}}" class="btn btn-danger btn btn-sm float-right mr-4">Rimuovi carrello</a></td>
+            </tr>
+               </tbody>
+
+        </table>
+
+    </div>
+</div>
+</div>
+
+{% endblock content %}
