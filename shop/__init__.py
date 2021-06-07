@@ -7,13 +7,18 @@ from flask_login import LoginManager
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
+
+#Definizione della URI del mio dabatase
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/flask_db'
 app.config['SECRET_KEY']='hfouewhfoiwefoquw'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#Inizializzazione del database
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+#Le immagini dei prodotti verranno salvate nella cartella images.
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/images')
 
+#Il metodo LoginManager() permette l'applicazione di gestire il login dell'utente.
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view='customerLogin'
@@ -28,7 +33,7 @@ patch_request_class(app)
 
 
 
-
+#Importazioni dei moduli.
 
 from shop.admin import routes
 from shop.products import routes
