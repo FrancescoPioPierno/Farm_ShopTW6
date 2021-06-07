@@ -1,4 +1,12 @@
+
+#Importazione del modulo db
 from shop import db
+
+#Definizione della tabella User(in questo caso Admin). Per la creazione delle tabelle si farà utilizzo di SQLAlchemy.
+#La classe User prenderà in parametro db.Model. Esso è la classe base di tutti i modelli definito dal database.
+#Il metodo db.Column non fa altro che creare le varie colonne; primary_key definisce la chiave primaria, unique se il valore
+#inserito dovrà essere unico o no, e nullable se dovrà essere vuoto o no.
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,5 +18,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+#Metodo che crea "fisicamente" la tabella e la inserisce nel database.
 
 db.create_all()
