@@ -4,6 +4,7 @@ from .forms import Addproducts
 from .models import Brand, Category, Addproduct
 import secrets, os
 
+#Le funzioni brands() e categories() non fanno altro che mostrare (anche nel template) le marche e le categorie presenti.
 
 def brands():
     brands = Brand.query.join(Addproduct, (Brand.id == Addproduct.brand_id)).all()
@@ -13,16 +14,20 @@ def categories():
     categories = Category.query.join(Addproduct, (Category.id == Addproduct.category_id)).all()
     return categories
 
+#Route "HomePage" che visualizza la lista del prodotti presenti.
 
 @app.route('/')
 def home():
     products = Addproduct.query.filter(Addproduct.stock > 0)
     return render_template('products/index.html', products=products, barnds=brands(), categories=categories())
 
+#Questa route permette di vualizzare l'elemento selezionato nel dettaglio.
+
 @app.route('/product/<int:id>')
 def single_page(id):
     product = Addproduct.query.get_or_404(id)
     return render_template('products/single_page.html', product=product, categories=categories(), barnds=brands())
+
 
 @app.route('/categories/<int:id>')
 def get_category(id):
@@ -35,7 +40,7 @@ def get_brand(id):
     return render_template('products/index.html', brand=brand, barnds=brands(), categories=categories())
 
 
-
+#Route che definisce l'aggiunta della marca dei miei prodotti, la richiesta HTTP dovrà essere di tipo "POST" per l'if.
 
 @app.route('/addbrand', methods=['GET', 'POST'])
 def addbrand():
@@ -51,6 +56,7 @@ def addbrand():
         return redirect(url_for('addbrand'))
 
     return render_template('products/addbrand.html', brands='brands')
+
 
 @app.route('/updatebrand/<int:id>', methods=['GET', 'POST'])
 def updatebrand(id):

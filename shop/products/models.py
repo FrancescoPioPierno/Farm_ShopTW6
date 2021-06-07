@@ -1,6 +1,8 @@
 from shop import db
 from datetime import datetime
 
+#Classe Addproduct che definisce la tabella del prodotto con i seguenti dati. L'immagine inserita verrà salvata come stringa.
+
 class Addproduct(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
