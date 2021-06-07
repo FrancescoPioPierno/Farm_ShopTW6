@@ -3,10 +3,14 @@ from datetime import datetime
 from flask_login import UserMixin
 import json
 
+#Il decorator @login_manager.user_loader non fa altro che "caricare" l'utente registrato datogli un ID.
+
 @login_manager.user_loader
 def user_loader(user_id):
     return Register.query.get(user_id)
 
+#Classe di creazione dell'utente all'interno l'oggetto UserMixin. UserMixin non fa altro che andare a "soddisfare" alcuni metodi del tipo
+#se l'utente è connesso, se è valido o se è un utente anonimo.
 
 class Register(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +30,7 @@ class Register(db.Model, UserMixin):
     def __repr__(self):
         return '<Register %r>' % self.name
 
+#La seguente classe trasforma i dati inseriti all'interno del mio carrello, in questo caso l'ordine e li restituisce in formato JSON
 
 class JsonEcodedDict(db.TypeDecorator):
     impl = db.Text
@@ -42,6 +47,8 @@ class JsonEcodedDict(db.TypeDecorator):
         else:
             return json.loads(value)
 
+#Creazione dell'ordine da parte dell'utente. Come si vuol notare come la variabile orders contenga la classe JsonEcodedDict.
+#Infatti se andiamo ad interrogare il database con una query, ci restituirà l'ordine in un dizionario (formato JSON)
 
 class CustomerOrder(db.Model):
     id = db.Column(db.Integer, primary_key=True)

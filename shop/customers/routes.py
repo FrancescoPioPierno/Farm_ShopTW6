@@ -5,6 +5,8 @@ from .forms import CustomerRegisterForm, CustomerLoginForm
 from .models import Register, CustomerOrder
 import secrets, os
 
+#Creazione della route per la registrazione dell'utente.
+
 @app.route('/customerregister', methods=['GET', 'POST'])
 def customer_register():
     form = CustomerRegisterForm()
@@ -20,6 +22,8 @@ def customer_register():
 
 
     return render_template('customer/register.html', form=form)
+
+#Route che definisce il login dell'utente
 
 @app.route('/customer/login', methods=['GET', 'POST'])
 def customerLogin():
@@ -39,10 +43,15 @@ def customerLogin():
     return render_template('customer/login.html', form=form)
 
 
+#Route per il logout dell'utente. Il metodo logout_user() "scollega" l'utente dalla homepage.
 @app.route('/customer/logout')
 def customer_logout():
     logout_user()
     return redirect(url_for('home'))
+
+#Route che invia l'ordine. Tutte le operazioni per la spedizione dell'ordine vengono gestiti da un blocco try-except.
+#All'interno del blocco try, viene inserito l'ordine all'interno del database con i metodi session.add() e session.commit()
+#messaggio di successo. Se l'ordine non va a buon fine, verrà eseguito il blocco di codice all'interno di except.
 
 @app.route('/getorder')
 @login_required
@@ -62,6 +71,9 @@ def get_order():
             print(e)
             flash('Qualcosa è andato storto', 'danger')
             return redirect(url_for('getCart'))
+
+#route che restituirà il sommario dell'ordine eseguito. Il decorator @login_required permette che l'ordine venga eseguito
+#solo se l'utente ha effettuato il login.
 
 @app.route('/orders/<invoice>')
 @login_required
