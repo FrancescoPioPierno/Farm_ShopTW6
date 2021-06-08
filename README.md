@@ -14,21 +14,21 @@ Se si è in possesso di un IDE come PyCharm, si crea automaticamente una virtual
 
 Attivare la virtual environment:
 
-venv\Scripts\activate
+`venv\Scripts\activate`
 
 Una volta attivata la virtual environment, installare i requirements:
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 Alcuni package sono installati in delle versioni precedenti in modo da impedire che alcuni di essi vadano in conflitto
 Si inserisce nella variabile d'ambiente FLASK_APP il file che avvia la web app.
 
-set FLASK_APP=run.py
+`set FLASK_APP=run.py`
 
 Attivare il debug
 
-set FLASK_DEBUG=1
+`set FLASK_DEBUG=1`
 
 Avviare il programma
 
-flask run
+`flask run`
