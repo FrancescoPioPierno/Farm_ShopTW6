@@ -3,6 +3,6 @@
 # Pierno Francesco Pio 
 La web app è stata implementata con le seguenti tecnologie:
 
-Lato Client: HTML e JavaScript, JQuery con supporto di Bootstrap
-Lato Server: Linguaggio di programmazione Python, Flask, e SQLAlchemy 
+- Lato Client: HTML e JavaScript, JQuery con supporto di Bootstrap
+- Lato Server: Linguaggio di programmazione Python, Flask, e SQLAlchemy 
 
