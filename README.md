@@ -20,7 +20,7 @@ Una volta attivata la virtual environment, installare i requirements:
 
 `pip install -r requirements.txt`
 
-Alcuni package sono installati in delle versioni precedenti in modo da impedire che alcuni di essi vadano in conflitto
+Alcuni package sono installati in delle versioni precedenti in modo da impedire che alcuni di essi vadano in conflitto.
 Si inserisce nella variabile d'ambiente FLASK_APP il file che avvia la web app.
 
 `set FLASK_APP=run.py`
