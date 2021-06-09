@@ -5,7 +5,7 @@ from .forms import CustomerRegisterForm, CustomerLoginForm
 from .models import Register, CustomerOrder
 import secrets, os
 
-#Creazione della route per la registrazione dell'utente.
+#Creazione della route per definire L'URL per la registrazione dell'utente.
 
 @app.route('/customerregister', methods=['GET', 'POST'])
 def customer_register():
@@ -18,12 +18,13 @@ def customer_register():
         db.session.add(register)
         flash(f'Benvenuto {form.name.data} Grazie per esserti registrato', 'success')
         db.session.commit()
-        return redirect(url_for('login'))
+        #Una volta eseguito la registrazione, l'utente verrà reindirizzato alla pagina di Login tramite la funzione customerLogin.
+        return redirect(url_for('customerLogin'))
 
 
     return render_template('customer/register.html', form=form)
 
-#Route che definisce il login dell'utente
+#Route che definisce l'URL per il login dell'utente
 
 @app.route('/customer/login', methods=['GET', 'POST'])
 def customerLogin():
