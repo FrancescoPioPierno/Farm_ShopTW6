@@ -9,6 +9,7 @@ La web app è stata implementata con le seguenti tecnologie:
 # Esecuzione della web application
 
 Se si è in possesso di un IDE come PyCharm, si crea automaticamente una virtual environment se no utilizzare i seguenti comandi da terminale:
+Creare la virtual environment:
 
 `py -3 -m venv venv`
 
