@@ -34,4 +34,5 @@ Avviare il programma
 
 `flask run`
 
-La cartella database contiene il file .sql che contiene lo script per il popolamento delle tabelle che sono state create.
+La cartella "database" contiene lo script per il popolamento delle tabelle che sono state create. In casi estremi, modificare la URI del database
+che si trova all'interno della cartella "shop" nel file `__init__`.
