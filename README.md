@@ -33,3 +33,5 @@ Attivare il debug
 Avviare il programma
 
 `flask run`
+
+La cartella database contiene il file .sql che contiene lo script per il popolamento delle tabelle che sono state create.
